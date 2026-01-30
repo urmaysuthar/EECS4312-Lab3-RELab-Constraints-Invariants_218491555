@@ -45,4 +45,13 @@ class DispenseEvent:
             bool: True if all invariants hold after adding new_event; False otherwise.
             
         """
-        pass
+        for event in (existing_events or []):
+            if event.patient_id == new_event.patient_id and event.medication == new_event.medication:
+                return False
+
+        # Invariant 2: all doses are expressed in milligrams.
+        # In this code, that is represented by using the field name dose_mg and making sure it exists as a number.
+        if not hasattr(new_event, "dose_mg") or not isinstance(new_event.dose_mg, (int, float)):
+            return False
+
+        return True
