@@ -17,6 +17,18 @@ class DispenseEvent:
             quantity: Number of units dispensed. Must be a positive integer.
 
         """
+        if patient_id is None or (isinstance(patient_id, str) and patient_id.strip() == ""):
+        raise ValueError("Invalid patient_id")
+
+        if medication is None or (isinstance(medication, str) and medication.strip() == ""):
+        raise ValueError("Invalid medication")
+
+        if not isinstance(dose_mg, (int, float)) or dose_mg <= 0:
+        raise ValueError("dose_mg must be a positive value")
+
+        if not isinstance(quantity, int) or quantity <= 0:
+        raise ValueError("quantity must be a positive integer")
+        
         self.patient_id = patient_id
         self.medication = medication
 
