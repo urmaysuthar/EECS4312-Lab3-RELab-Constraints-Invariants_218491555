@@ -9,7 +9,7 @@ from dispense import DispenseEvent
 
 
 def test_rejects_invalid_dose_and_quantity():
-    # Tests Task 3 constraints: dose must be positive and quantity must be a positive integer
+    # trying to test for Task 3 constraints: dose must be positive and quantity must be a positive integer
     with pytest.raises(ValueError):
         DispenseEvent("P1", "MedA", 0, 1)
 
@@ -24,7 +24,7 @@ def test_rejects_invalid_dose_and_quantity():
 
 
 def test_duplicate_patient_medication_invariant_fails():
-    # Tests Task 4 invariant: same patient cannot receive same medication twice
+    # trying to test for Task 4 invariant: same patient cannot receive same medication twice
     class DummyEvent:
         def __init__(self, patient_id, medication, dose_mg):
             self.patient_id = patient_id
@@ -38,7 +38,7 @@ def test_duplicate_patient_medication_invariant_fails():
 
 
 def test_invariant_requires_numeric_dose_mg():
-    # Tests Task 4 invariant: dose_mg must exist and be numeric
+    # trying to test for Task 4 invariant: dose_mg must exist and be numeric
     class DummyEvent:
         def __init__(self, patient_id, medication, dose_mg):
             self.patient_id = patient_id
