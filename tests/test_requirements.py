@@ -10,6 +10,7 @@ from dispense import DispenseEvent
 
 def test_rejects_invalid_dose_and_quantity():
     # trying to test for Task 3 constraints: dose must be positive and quantity must be a positive integer
+    # bad inputs should get rejected immediately by raising a ValueError
     with pytest.raises(ValueError):
         DispenseEvent("P1", "MedA", 0, 1)
 
@@ -25,6 +26,7 @@ def test_rejects_invalid_dose_and_quantity():
 
 def test_duplicate_patient_medication_invariant_fails():
     # trying to test for Task 4 invariant: same patient cannot receive same medication twice
+    # we are testing the system rule that says you should not be able to add a new event if it breaks the invariant
     class DummyEvent:
         def __init__(self, patient_id, medication, dose_mg):
             self.patient_id = patient_id
@@ -45,8 +47,8 @@ def test_invariant_requires_numeric_dose_mg():
             self.medication = medication
             self.dose_mg = dose_mg
 
-    invalid_event = DummyEvent("P1", "MedA", "10")
-    valid_event = DummyEvent("P1", "MedA", 10)
+    invalid_event = DummyEvent("P1", "MedA", "10") 
+    valid_event = DummyEvent("P1", "MedA", 10) 
 
     assert DispenseEvent.invariant_holds([], invalid_event) is False
     assert DispenseEvent.invariant_holds([], valid_event) is True
